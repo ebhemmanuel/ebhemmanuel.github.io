@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Notey.</title>
+		<link rel="stylesheet" href="/public/css/bootstrap.css">
+		<link rel="stylesheet" href="/public/css/main.css">
+		<script src="/node_modules/angular/angular.js"></script>
+		<script src="/js/routes.js"></script>
+		<script src="/js/data-service.js"></script>
+		<script src="/js/app.js"></script>
+	</head>
+	<body ng-app="myApp">
+		<!-- This intro-container runs on jQuery -->
+		<div class="container intro-container text-center">
+			<div class="col-xs-4 col-xs-offset-4 user-prompt">
+				<div class="col-xs-12 m-b-30 p-0">
+					<h1 class="intro-message-one">Hi there.</h1>
+					<h2 class="intro-message-two">My name is Notey. What's yours?</h2>
+				</div>
+				<div class="input-group col-xs-12">
+					<input id="intro-username" type="text" class="col-xs-8 left-input"/>
+					<input class="col-xs-4 intro-username-confirm custom-button" type="submit" value="○" />
+				</div>
+			</div>
+			<div class="col-xs-12 welcome-message">
+				<h2 class="welcome-text m-b-30"></h2>
+				<button href="#/groceries" class="welcome-button col-xs-4 col-xs-offset-4">Let's try making a grocery list</button>
+			</div>
+		</div>
+		<div class="container-fluid list-container p-0">
+		<!-- Fake Nav Section -->
+		<nav class="container-fluid">
+			<div class="container logo-container">
+				<div class="logo pull-left col-xs-2">
+					<img src="images/logo.svg">
+				</div>
+				<ul class="list-unstyled list-inline links pull-right text-right col-xs-6">
+					<li><span class="welcome-title">Welcome</span> <a href="#"><span class="user-name">Emmanuel</span></a></li>
+					<li><a href="#/groceries">Groceries</a></li>
+					<li><a href="#/todo">To do</a></li>
+					<li><a href="#/contacts">Contact List</a></li>
+				</ul>
+			</div>
+		</nav>
+		<!-- This list-container runs on angular. -->
+		<div ng-view></div>
+	</div>
+	<script src="/js/jquery.js"></script>
+	<script src="/public/js/myApp.js"></script>
+
+</body>
+</html>
