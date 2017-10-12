@@ -13,6 +13,6 @@ angular.module('myApp')
     templateUrl: "404.html",
     controller : "404Controller"
   }).otherwise({
-    redirectTo : "/groceries"
+    redirectTo : ""
   })
 })
