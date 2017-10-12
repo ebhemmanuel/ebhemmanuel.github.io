@@ -9,11 +9,11 @@
 				<!-- ng-click newItem() function runs on click -->
 				<input id="listing-name-confirm" class="col-xs-12 custom-button" type="submit" value="Add" ng-click="newTodo()"/>
 			</div>
-			<div class="col-xs-8 text-right" style="margin-top: 37px;">
+			<div class="col-xs-8 text-right content-list-container">
 				<h4>Todo List</h4>
 				<ul class="list-unstyled text-left item-list">
 					<!-- ng-repeat has track by  $index to accept duplicates -->
-					<li style="margin-bottom:30px;height: 48px;" class="text-left" ng-repeat="todo in todolist track by $index">
+					<li class="text-left" ng-repeat="todo in todolist track by $index">
 						<div class="col-xs-10 p-l-0">
 							<div class="col-xs-4 p-l-0">{{ todo }}</div>
 						</div>
