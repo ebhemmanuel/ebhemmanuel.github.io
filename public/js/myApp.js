@@ -2635,6 +2635,10 @@ n.cssHooks[b]=Ua(l.pixelPosition,function(a,c){return c?(c=Sa(a,b),Oa.test(c)?n(
 	});
 
 angular.module('myApp')
+  // --------------------------------------------------------------
+  // - Load templates according to which routes it contacts,
+  // - otherwise go to default location
+  // --------------------------------------------------------------
 .config(function($routeProvider){
   $routeProvider.when('/groceries',{
     templateUrl : "groceries.html",
@@ -34498,6 +34502,9 @@ angular.module('myApp')
     $scope.contactsPhone;
     $scope.contacts = contactsService.getContact();
     $scope.newContact = function(){
+      // --------------------------------------------------------------
+      // - If Null don't save, else save to local
+      // --------------------------------------------------------------
       if(
         $scope.contactsName  == null || $scope.contactsName  == ""   ||
         $scope.contactsEmail == null || $scope.contactsEmail == ""   ||
@@ -34510,23 +34517,38 @@ angular.module('myApp')
           $scope.contactsEmail,
           $scope.contactsPhone
         );
+      // --------------------------------------------------------------
+      // - Reset values after saving
+      // --------------------------------------------------------------
         $scope.contactsName  = null;
         $scope.contactsEmail = null;
         $scope.contactsPhone = null;
       }
     }
+    // --------------------------------------------------------------
+    // - Deletes Listing
+    // --------------------------------------------------------------
     $scope.deleteContact = function(deletedItem){
       contactsService.deleteContact(deletedItem);
     }
 })
 angular.module('myApp')
 .controller('groceriesController', function($scope,groceriesService){
+    // --------------------------------------------------------------
+    // - Setting the scope for the input fields
+    // --------------------------------------------------------------
     $scope.groceryItem;
     $scope.groceryPrice;
     $scope.groceryAisle;
     $scope.grocerySku;
     $scope.groceries = groceriesService.getNames();
+    // --------------------------------------------------------------
+    // - on ng-click newItem save the input fields to localStorage
+    // --------------------------------------------------------------
     $scope.newItem = function(){
+      // --------------------------------------------------------------
+      // - If Null don't save, else save to local
+      // --------------------------------------------------------------
       if(
         $scope.groceryItem  == null || $scope.groceryItem  == ""   ||
         $scope.groceryPrice == null || $scope.groceryPrice == ""   ||
@@ -34541,12 +34563,18 @@ angular.module('myApp')
           $scope.groceryAisle,
           $scope.grocerySku
         );
+      // --------------------------------------------------------------
+      // - Reset values after saving
+      // --------------------------------------------------------------
         $scope.groceryItem  = null;
         $scope.groceryPrice = null;
         $scope.groceryAisle = null;
         $scope.grocerySku   = null;
       }
     }
+    // --------------------------------------------------------------
+    // - Deletes Listing
+    // --------------------------------------------------------------
     $scope.deleteItem = function(deletedItem){
       groceriesService.deleteItem(deletedItem);
     }
@@ -34556,6 +34584,9 @@ angular.module('myApp')
     $scope.todoAction;
     $scope.todolist = todoService.getTodoList();
     $scope.newTodo = function(){
+      // --------------------------------------------------------------
+      // - If Null don't save, else save to local
+      // --------------------------------------------------------------
       if(
         $scope.todoAction   == null || $scope.todoAction   == ""   ){
         return console.log('fail to return value');
@@ -34563,30 +34594,48 @@ angular.module('myApp')
         todoService.newTodo(
           $scope.todoAction
         );
+      // --------------------------------------------------------------
+      // - Reset values after saving
+      // --------------------------------------------------------------
         $scope.todoAction = null;
       }
     }
+    // --------------------------------------------------------------
+    // - Deletes Listing
+    // --------------------------------------------------------------
     $scope.deleteTask = function(deletedItem){
       todoService.deleteTask(deletedItem);
     }
 })
 angular.module('myApp')
 .service('contactsService', function(){
+  // --------------------------------------------------------------
+  // - Default Array
+  // --------------------------------------------------------------
   var contacts = [
     {name:'Mike', email:'mike@fullsail.edu', phone:'407-877-8976'},
     {name:'Mike', email:'mike@fullsail.edu', phone:'407-877-8976'}
   ];
+  // --------------------------------------------------------------
+  // - Get List
+  // --------------------------------------------------------------
   this.getContact = function(){
     var str = localStorage.getItem("contactLS");
     contacts = JSON.parse(str) || contacts;
     return contacts;
   }
+  // --------------------------------------------------------------
+  // - Set item into localStorage
+  // --------------------------------------------------------------
   this.newContact = function(pName,pEmail,pPhone){
     var contactObject = {name:pName,email:pEmail,phone:pPhone};
     contacts.push(contactObject);
     var str = JSON.stringify(contacts);
     localStorage.setItem("contactLS",str);
   }
+  // --------------------------------------------------------------
+  // - Delete item from localStorage
+  // --------------------------------------------------------------
   this.deleteContact = function(pName){
     var idx = contacts.indexOf(pName);
     contacts.splice(idx,1);
@@ -34596,21 +34645,33 @@ angular.module('myApp')
 })
 angular.module('myApp')
 .service('groceriesService', function(){
+  // --------------------------------------------------------------
+  // - Default Array
+  // --------------------------------------------------------------
   var groceries = [
     {name:'Bread',price:'6.99',aisle:'4',sku:'987'},
     {name:'Milk',price:'6.99',aisle:'4',sku:'987'}
   ];
+  // --------------------------------------------------------------
+  // - Get List
+  // --------------------------------------------------------------
   this.getNames = function(){
     var str = localStorage.getItem("itemLS");
     groceries = JSON.parse(str) || groceries;
     return groceries
   }
+  // --------------------------------------------------------------
+  // - Set item into localStorage
+  // --------------------------------------------------------------
   this.newItem = function(pName,pPrice,pAisle,pSku){
     var object = {name:pName,price:pPrice,aisle:pAisle,sku:pSku};
     groceries.push(object);
     var str = JSON.stringify(groceries);
     localStorage.setItem("itemLS",str);
   }
+  // --------------------------------------------------------------
+  // - Delete item from localStorage
+  // --------------------------------------------------------------
   this.deleteItem = function(pName){
     var idx = groceries.indexOf(pName);
     groceries.splice(idx,1);
@@ -34620,17 +34681,29 @@ angular.module('myApp')
 })
 angular.module('myApp')
 .service('todoService', function(){
+  // --------------------------------------------------------------
+  // - Default Array
+  // --------------------------------------------------------------
   var todoList = ['Clean the car', 'Go running.'];
+  // --------------------------------------------------------------
+  // - Get List
+  // --------------------------------------------------------------
   this.getTodoList = function(){
     var str = localStorage.getItem("toLS");
     todo = JSON.parse(str) || todoList;
     return todoList;
   }
+  // --------------------------------------------------------------
+  // - Set item into localStorage
+  // --------------------------------------------------------------
   this.newTodo = function(pAction){
     todoList.push(pAction);
     var str = JSON.stringify(todoList);
     localStorage.setItem("toLS",str);
   }
+  // --------------------------------------------------------------
+  // - Delete item from localStorage
+  // --------------------------------------------------------------
   this.deleteTask = function(pName){
     var idx = todoList.indexOf(pName);
     todoList.splice(idx,1);
