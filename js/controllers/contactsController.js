@@ -5,6 +5,9 @@ angular.module('myApp')
     $scope.contactsPhone;
     $scope.contacts = contactsService.getContact();
     $scope.newContact = function(){
+      // --------------------------------------------------------------
+      // - If Null don't save, else save to local
+      // --------------------------------------------------------------
       if(
         $scope.contactsName  == null || $scope.contactsName  == ""   ||
         $scope.contactsEmail == null || $scope.contactsEmail == ""   ||
@@ -17,11 +20,17 @@ angular.module('myApp')
           $scope.contactsEmail,
           $scope.contactsPhone
         );
+      // --------------------------------------------------------------
+      // - Reset values after saving
+      // --------------------------------------------------------------
         $scope.contactsName  = null;
         $scope.contactsEmail = null;
         $scope.contactsPhone = null;
       }
     }
+    // --------------------------------------------------------------
+    // - Deletes Listing
+    // --------------------------------------------------------------
     $scope.deleteContact = function(deletedItem){
       contactsService.deleteContact(deletedItem);
     }

@@ -1,4 +1,8 @@
 angular.module('myApp')
+  // --------------------------------------------------------------
+  // - Load templates according to which routes it contacts,
+  // - otherwise go to default location
+  // --------------------------------------------------------------
 .config(function($routeProvider){
   $routeProvider.when('/groceries',{
     templateUrl : "groceries.html",

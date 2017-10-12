@@ -1,11 +1,20 @@
 angular.module('myApp')
 .controller('groceriesController', function($scope,groceriesService){
+    // --------------------------------------------------------------
+    // - Setting the scope for the input fields
+    // --------------------------------------------------------------
     $scope.groceryItem;
     $scope.groceryPrice;
     $scope.groceryAisle;
     $scope.grocerySku;
     $scope.groceries = groceriesService.getNames();
+    // --------------------------------------------------------------
+    // - on ng-click newItem save the input fields to localStorage
+    // --------------------------------------------------------------
     $scope.newItem = function(){
+      // --------------------------------------------------------------
+      // - If Null don't save, else save to local
+      // --------------------------------------------------------------
       if(
         $scope.groceryItem  == null || $scope.groceryItem  == ""   ||
         $scope.groceryPrice == null || $scope.groceryPrice == ""   ||
@@ -20,12 +29,18 @@ angular.module('myApp')
           $scope.groceryAisle,
           $scope.grocerySku
         );
+      // --------------------------------------------------------------
+      // - Reset values after saving
+      // --------------------------------------------------------------
         $scope.groceryItem  = null;
         $scope.groceryPrice = null;
         $scope.groceryAisle = null;
         $scope.grocerySku   = null;
       }
     }
+    // --------------------------------------------------------------
+    // - Deletes Listing
+    // --------------------------------------------------------------
     $scope.deleteItem = function(deletedItem){
       groceriesService.deleteItem(deletedItem);
     }
